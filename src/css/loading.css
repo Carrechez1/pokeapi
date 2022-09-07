@@ -1,0 +1,53 @@
+.loading {
+  position: absolute;
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+}
+.cont__load {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-size: 40% 40%;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  background-position: 50% 50%;
+}
+.preloader {
+  margin-top: 12%;
+  width: 350px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.274);
+  position: relative;
+}
+.preloader:before {
+  content: "";
+  position: absolute;
+  background: green;
+  width: 0;
+  height: 30px;
+  animation: preloader 3.5s infinite;
+}
+
+.preloader p {
+  margin: 0;
+  line-height: 30px;
+  font-size: 25px;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes preloader {
+  90% {
+    width: 100%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
