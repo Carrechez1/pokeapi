@@ -37,6 +37,12 @@
   display: flex;
   justify-self: center;
 }
+.lentee {
+  width: 25%;
+  margin-top: 7px;
+  grid-column: 5/6;
+  grid-row: 1/6;
+}
 .details__led {
   display: flex;
   justify-content: center;
@@ -60,15 +66,14 @@
 }
 .details__circle2 {
   grid-column: 1/2;
-  grid-row: 4/5;
+  grid-row: 3/4;
   display: flex;
   justify-content: center;
   align-items: center;
   color: aqua;
-  font-size: 20px;
+  font-size: 40px;
   position: relative;
   left: -20px;
-  bottom: 2px;
 }
 .details__circle3 {
   grid-column: 1/2;
@@ -77,22 +82,20 @@
   justify-content: center;
   align-items: center;
   color: yellow;
-  font-size: 20px;
+  font-size: 40px;
   position: relative;
-  left: 0px;
-  bottom: 8px;
+  left: 40px;
 }
 .details__circle4 {
   grid-column: 1/2;
-  grid-row: 2/3;
+  grid-row: 3/4;
   display: flex;
   justify-content: center;
   align-items: center;
   color: green;
-  font-size: 20px;
+  font-size: 40px;
   position: relative;
-  left: 23px;
-  bottom: 10px;
+  left: 100px;
 }
 
 .details__pokeinfo {

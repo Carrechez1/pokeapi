@@ -34,12 +34,13 @@ const PokemonDetails = () => {
   return (
     <div className={`details`}>
       <header className="details__header">
-        <i className="bx bx-color details__camera"></i>
+        {/* <i className="bx bx-color details__camera"></i>
         <i className="bx bx-radio-circle-marked details__led"></i>
-        <i className="bx bxs-circle details__circle1"></i>
-        <i className="bx bxs-circle details__circle2"></i>
-        <i className="bx bxs-circle details__circle3"></i>
-        <i className="bx bxs-circle details__circle4"></i>
+        <i className="bx bxs-circle details__circle1"></i> */}
+        <img className="lentee" src="lentePokedex.png" alt="" />
+        <i className="bx bxs-circle details__circle2 flicker1"></i>
+        <i className="bx bxs-circle details__circle3 flicker2"></i>
+        <i className="bx bxs-circle details__circle4 flicker3"></i>
         <img className="details__headerimg" src="/img/pokedex.png" alt="" />
       </header>
       <div className="details__pokeinfo">

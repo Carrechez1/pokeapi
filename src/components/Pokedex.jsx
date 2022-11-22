@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../css/pokedex.css";
 import Search from "./pokedex/Search";
 import SelectType from "./pokedex/SelectType";
+import Pagination from "./pokedex/pagination";
 const Pokedex = () => {
   /*******************************/
   const dispatch = useDispatch();
@@ -14,6 +15,13 @@ const Pokedex = () => {
   const [pokesearch, setPokesearch] = useState();
   const [selectType, setSelectType] = useState("All");
   const [pokeValid, setPokeValid] = useState();
+  const [next, setNext] = useState();
+  const [previous, setPrevious] = useState();
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/");
+  const [page, setPage] = useState(1);
+  const [pokePerPage, setPokePerPage] = useState(20);
+  let [offset, setOffset] = useState(20);
+  let [offsetRes, setOffsetRes] = useState();
   /*******************************/
   useEffect(() => {
     if (selectType !== "All") {
@@ -36,10 +44,20 @@ const Pokedex = () => {
       };
       setPokemons(obj);
     } else {
-      const URL = "https://pokeapi.co/api/v2/pokemon/";
       axios
-        .get(URL)
-        .then((res) => setPokemons(res.data))
+        .get(url)
+        .then((res) => {
+          // setNext(res.data.next),
+          setNext(
+            (res.data.next = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`)
+          ),
+            setPrevious(
+              (res.data.previous = `https://pokeapi.co/api/v2/pokemon/?offset=${offsetRes}&limit=20`)
+            ),
+            setPokemons(res.data),
+            console.log(res.data);
+          // const maximo = pokemons.count / porPagina;
+        })
         .catch((err) => console.log(err));
     }
 
@@ -48,23 +66,29 @@ const Pokedex = () => {
     setTimeout(() => {
       dispatch(setLoading(false));
     }, 3000);
-  }, [pokesearch, selectType]);
+  }, [pokesearch, selectType, url]);
 
   /*****************************/
   const nameTrainer = useSelector((state) => state.nameTrainer);
   const loading = useSelector((state) => state.loading);
+  /************************************************************* */
+  //paginacion
+
+  // console.log(maximo);
+  /************************************************************* */
   if (loading) {
     return <Loading />;
   } else {
     return (
       <div className="pokedex">
         <header className="pokedex__header">
-          <i className="bx bx-color pokedex__camera"></i>
+          {/* <i className="bx bx-color pokedex__camera"></i>
           <i className="bx bx-radio-circle-marked pokedex__led"></i>
-          <i className="bx bxs-circle pokedex__circle1"></i>
-          <i className="bx bxs-circle pokedex__circle2"></i>
-          <i className="bx bxs-circle pokedex__circle3"></i>
-          <i className="bx bxs-circle pokedex__circle4"></i>
+          <i className="bx bxs-circle pokedex__circle1"></i> */}
+          <img className="lente" src="lentePokedex.png" alt="" />
+          <i className="bx bxs-circle pokedex__circle2 flicker1"></i>
+          <i className="bx bxs-circle pokedex__circle3 flicker2"></i>
+          <i className="bx bxs-circle pokedex__circle4 flicker3"></i>
           <img className="header__img" src="/img/pokedex.png" alt="" />
 
           <div className="pokedex__search">
@@ -88,7 +112,21 @@ const Pokedex = () => {
             <PokemonCard key={pokemon.url} url={pokemon.url} />
           ))}
         </div>
-        <footer className="pokedex__footer"></footer>
+        <footer className="pokedex__footer">
+          <Pagination
+            page={page}
+            setPage={setPage}
+            next={next}
+            previous={previous}
+            setPrevious={setPrevious}
+            setUrl={setUrl}
+            offset={offset}
+            setOffset={setOffset}
+            offsetRes={offsetRes}
+            setOffsetRes={setOffsetRes}
+            pagesLength={pokemons && Math.ceil(pokemons.count / pokePerPage)}
+          />
+        </footer>
       </div>
     );
   }
