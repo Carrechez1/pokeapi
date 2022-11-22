@@ -12,6 +12,7 @@ const Pagination = ({
   offsetRes,
   setOffsetRes,
   setPrevious,
+  pokemons,
 }) => {
   const pagesPerBlock = 8;
   const currentBlock = Math.ceil(page / pagesPerBlock);
@@ -26,8 +27,6 @@ const Pagination = ({
   }
   const plus = () => {
     setUrl(next);
-    setOffset(offset + 20);
-    setOffsetRes(offset - 20);
     setPage(page + 1);
   };
   const onSpecificPage = (n) => {
@@ -36,20 +35,14 @@ const Pagination = ({
     setOffsetRes(negat);
     setOffset(posit);
     setUrl(
-      ((next = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`),
-      (previous = `https://pokeapi.co/api/v2/pokemon/?offset=${offsetRes}&limit=20`))
+      ((pokemons.next = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`),
+      (pokemons.previous = `https://pokeapi.co/api/v2/pokemon/?offset=${offsetRes}&limit=20`))
     );
     setPage(n);
   };
   const res = () => {
-    if (offset === 20) {
-      setPrevious(null);
-    } else {
-      setUrl(previous);
-      setOffsetRes(offsetRes - 20);
-      setOffset(offset - 20);
-      setPage(page - 1);
-    }
+    setUrl(previous);
+    setPage(page - 1);
   };
   return (
     <div className="pagination">

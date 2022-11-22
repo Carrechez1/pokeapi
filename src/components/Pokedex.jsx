@@ -21,7 +21,7 @@ const Pokedex = () => {
   const [page, setPage] = useState(1);
   const [pokePerPage, setPokePerPage] = useState(20);
   let [offset, setOffset] = useState(20);
-  let [offsetRes, setOffsetRes] = useState();
+  let [offsetRes, setOffsetRes] = useState(0);
   /*******************************/
   useEffect(() => {
     if (selectType !== "All") {
@@ -48,12 +48,8 @@ const Pokedex = () => {
         .get(url)
         .then((res) => {
           // setNext(res.data.next),
-          setNext(
-            (res.data.next = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`)
-          ),
-            setPrevious(
-              (res.data.previous = `https://pokeapi.co/api/v2/pokemon/?offset=${offsetRes}&limit=20`)
-            ),
+          setNext(res.data.next),
+            setPrevious(res.data.previous),
             setPokemons(res.data),
             console.log(res.data);
           // const maximo = pokemons.count / porPagina;
@@ -125,6 +121,7 @@ const Pokedex = () => {
             offsetRes={offsetRes}
             setOffsetRes={setOffsetRes}
             pagesLength={pokemons && Math.ceil(pokemons.count / pokePerPage)}
+            pokemons={pokemons}
           />
         </footer>
       </div>
